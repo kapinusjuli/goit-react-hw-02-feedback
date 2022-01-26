@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import Value from "../src/components/Feedback/Value";
-import Controls from "./components/Feedback/Controls";
+import Statistics from "./components/Feedback/Statistics";
+import FeedbackOptions from "./components/Feedback/FeedbackOptions";
+import Section from "./components/Feedback/Section";
+import Notification from "./components/Feedback/Notification";
 import "../src/components/Feedback/Counter.css";
 
 class App extends Component {
@@ -28,7 +30,6 @@ class App extends Component {
     }));
   };
 
-  countTotalFeedback() {}
   render() {
     const { good, neutral, bad } = this.state;
     const countTotalFeedback =
@@ -38,20 +39,27 @@ class App extends Component {
     );
 
     return (
-      <div className="Counter">
-        <h2>Please leave feedback</h2>
-        <Controls
-          onGood={this.handleOnGood}
-          onNeutral={this.handleOnNeutral}
-          onBad={this.handleOnBad}
-        />
-        <div className="Counter__value">
-          <Value value_good={good} value_neutral={neutral} value_bad={bad} />
-          <div className="Counter__value">Total: {countTotalFeedback}</div>
-          <div className="Counter__value">
-            Positive feedback: {countPositiveFeedbackPercentage}%
-          </div>
-        </div>
+      <div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            onGood={this.handleOnGood}
+            onNeutral={this.handleOnNeutral}
+            onBad={this.handleOnBad}
+          />
+        </Section>
+        <Section title="Statistics">
+          {countTotalFeedback ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={countTotalFeedback}
+              positivePercentage={countPositiveFeedbackPercentage}
+            />
+          ) : (
+            <Notification message="No feedback given" />
+          )}
+        </Section>
       </div>
     );
   }
