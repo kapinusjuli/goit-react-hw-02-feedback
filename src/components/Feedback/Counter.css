@@ -4,10 +4,11 @@
   font-size: 24px;
 }
 
-.Counter__controls > button {
+.Counter__controls {
   border: none;
   padding: 10px 15px;
   margin-bottom: 20px;
+  margin-left: 20px;
   background-color: teal;
   color: #fff;
   font-weight: 500;

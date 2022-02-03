@@ -12,39 +12,27 @@ class App extends Component {
     bad: 0,
   };
 
-  handleOnGood = () => {
+  handleBtnClick = ({ target }) => {
+    const feedbackType = target.dataset.action;
     this.setState((prevState) => ({
-      good: prevState.good + 1,
-    }));
-  };
-
-  handleOnNeutral = () => {
-    this.setState((prevState) => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  handleOnBad = () => {
-    this.setState((prevState) => ({
-      bad: prevState.bad + 1,
+      [feedbackType]: prevState[feedbackType] + 1,
     }));
   };
 
   render() {
+    const options = ["good", "neutral", "bad"];
     const { good, neutral, bad } = this.state;
-    const countTotalFeedback =
-      this.state.good + this.state.neutral + this.state.bad;
+    const countTotalFeedback = good + neutral + bad;
     const countPositiveFeedbackPercentage = Math.round(
-      (this.state.good * 100) / countTotalFeedback
+      (good * 100) / countTotalFeedback
     );
 
     return (
       <div>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            onGood={this.handleOnGood}
-            onNeutral={this.handleOnNeutral}
-            onBad={this.handleOnBad}
+            options={options}
+            clickHandler={this.handleBtnClick}
           />
         </Section>
         <Section title="Statistics">

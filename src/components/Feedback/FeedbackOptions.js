@@ -1,19 +1,20 @@
 import React from "react";
 
-const FeedbackOptions = ({ onGood, onNeutral, onBad }) => (
-  <div>
-    <div className="Counter__controls">
-      <button type="button" onClick={onGood}>
-        Good
-      </button>
-      <button type="button" onClick={onNeutral}>
-        Neutral
-      </button>
-      <button type="button" onClick={onBad}>
-        Bad
-      </button>
-    </div>
-  </div>
-);
+const btn = ({ feedbackType, clickHandler }) => {
+  return (
+    <button
+      className="Counter__controls"
+      key={feedbackType}
+      data-action={feedbackType}
+      onClick={clickHandler}
+    >
+      {feedbackType}
+    </button>
+  );
+};
+
+function FeedbackOptions({ options, clickHandler }) {
+  return options.map((option) => btn({ feedbackType: option, clickHandler }));
+}
 
 export default FeedbackOptions;
